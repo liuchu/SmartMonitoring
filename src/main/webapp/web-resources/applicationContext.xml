@@ -41,11 +41,11 @@
         </property>
     </bean>-->
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="typeAliasesPackage" value="com.chuliu.alpha.pojo" />
         <property name="dataSource" ref="dataSource"/>
-        <!--<property name="mapperLocations" value="classpath:**/*Mapper.xml"/>-->
-    </bean>
+        &lt;!&ndash;<property name="mapperLocations" value="classpath:**/*Mapper.xml"/>&ndash;&gt;
+    </bean>-->
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.chuliu.alpha.mapper"/>
