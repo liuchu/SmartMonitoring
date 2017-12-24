@@ -93,7 +93,7 @@
 
         <!-- 拦截修改语言的Request -->
         <mvc:interceptor>
-            <mvc:mapping path="/user/changeLanguage"/>
+            <mvc:mapping path="/setting/changeLanguage"/>
             <bean id="localeChangeInterceptor" class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor">
                 <property name="paramName" value="lang"/>
             </bean>

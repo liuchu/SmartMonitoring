@@ -5,14 +5,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * Created by chuliu on 2017/12/20.
+ * Created by no one on 2017/12/20.
+ *
  */
+@RequestMapping("/monitoring")
 @Controller
 public class PageController {
 
-    @RequestMapping("/monitoring")
-    public ModelAndView viewHome(){
-        ModelAndView mav = new ModelAndView("monitoring");
+    @RequestMapping("")
+    public ModelAndView viewDashboard(){
+        ModelAndView mav = new ModelAndView("dashboard");
+        return mav;
+    }
+
+    @RequestMapping("live/basic")
+    public ModelAndView viewLiveStatus(){
+        ModelAndView mav = new ModelAndView("live_status");
+        return mav;
+    }
+
+    @RequestMapping("report/line")
+    public ModelAndView viewHistoryReportLineReport(){
+        ModelAndView mav = new ModelAndView("history_report_line_chart");
+        return mav;
+    }
+
+    @RequestMapping("setting_language")
+    public ModelAndView viewSettingLanguage(){
+        ModelAndView mav = new ModelAndView("setting_language");
         return mav;
     }
 }
