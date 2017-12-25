@@ -20,7 +20,7 @@ public class ServerInformation {
     private int usedDisk;           //磁盘使用量
     private int currentThreads;     //当前运行的线程数
 
-    public ServerInformation() {
+    private ServerInformation() {
     }
 
     public ServerInformation(String CPU, int memory, int disk, String IP, int maxAllowedThreads,
