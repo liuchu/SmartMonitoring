@@ -3,7 +3,9 @@ package com.aust.airbon.sm.task;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.aust.airbon.sm.dao.ServerInfoDao;
+import com.aust.airbon.sm.dao.impl.ServerInfoDaoImpl;
 import com.aust.airbon.sm.pojo.ServerInformation;
+import com.aust.airbon.sm.util.ApplicationContextHelper;
 import com.aust.airbon.sm.util.HttpServletContextHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
@@ -16,20 +18,24 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.time.LocalDateTime;
 import java.util.Enumeration;
 
 /**
  * Created by no one on 2017/12/25.
  *
  */
+
 public class PullServerStatusRunnable implements Runnable {
 
     private String ip;
     private int dataTransferPort;
     private static ServletContext context = null;
 
-    @Autowired
-    private ServerInfoDao serverInfoDao;
+    private static Integer number = 0;
+
+    //@Autowired
+    private static ServerInfoDaoImpl serverInfoDao = null;
 
     public static void setParam(ServletContext context){
         PullServerStatusRunnable.context = context;
@@ -58,6 +64,14 @@ public class PullServerStatusRunnable implements Runnable {
             return;
         }
 
+        synchronized (serverInfoDao) {
+            if (serverInfoDao==null) {
+                serverInfoDao = (ServerInfoDaoImpl)ApplicationContextHelper.getApplicationContext().getBean("serverInfoDao");
+            }
+        }
+
+        String jsonString = "";
+
         try {
             Socket socket = new Socket("localhost",dataTransferPort);
             //System.out.println(socket.getSoTimeout());
@@ -77,50 +91,55 @@ public class PullServerStatusRunnable implements Runnable {
             }
             socket.shutdownInput();
 
-            String jsonString = stringBuffer.toString();
-
-            JSONObject serverStatus = JSON.parseObject(stringBuffer.toString());
-            ServerInformation serverInfo = new ServerInformation(
-                    serverStatus.getString("CPU"),
-                    serverStatus.getIntValue("memory"),
-                    serverStatus.getIntValue("disk"),
-                    serverStatus.getString("IP"),
-                    serverStatus.getIntValue("maxAllowedThreads"),
-                    serverStatus.getBooleanValue("online"),
-                    serverStatus.getIntValue("usedCPU"),
-                    serverStatus.getIntValue("usedMemory"),
-                    serverStatus.getIntValue("usedDisk"),
-                    serverStatus.getIntValue("currentThreads")
-                    );
+            jsonString = stringBuffer.toString();
 
             //save to web servlet context
             context.setAttribute(ip,jsonString);
-            //System.out.println("Just now:"+ip+"->"+context.getAttribute(ip));
-
-            /*Enumeration<String> a = context.getAttributeNames();
-
-            while (a.hasMoreElements()){
-                String attr = a.nextElement();
-                System.out.println("!ATTRIBUTE:"+attr);
-            }*/
-
-            //save the status to database
-            /*synchronized (serverInfoDao){
-                serverInfoDao.insertServerInfo(serverInfo);
-            }*/
 
             //System.out.println(ip+"PULL SERVER STATUS"+jsonString);
 
         } catch (SocketTimeoutException e){
             context.setAttribute(ip,"Offline");
-            System.out.println("SocketTimeoutException: This server is offline!!");
+            System.out.println(ip+"SocketTimeoutException: This server is offline!!");
         } catch (SocketException e) {
             context.setAttribute(ip,"Offline");
-            System.out.println("SocketException: This server is offline!!");
+            System.out.println(ip+"SocketException: This server is offline!!");
         } catch (IOException e) {
             context.setAttribute(ip,"Offline");
-            System.out.println("IOException: This server is offline!!");
+            System.out.println(ip+"IOException: This server is offline!!");
         }
+
+        JSONObject serverStatus = JSON.parseObject(jsonString);
+        ServerInformation serverInfo = new ServerInformation(
+                serverStatus.getString("IP"),
+                serverStatus.getString("CPU"),
+                serverStatus.getIntValue("memory"),
+                serverStatus.getIntValue("disk"),
+                serverStatus.getIntValue("maxAllowedThreads"),
+                serverStatus.getBooleanValue("online"),
+                serverStatus.getIntValue("usedCPU"),
+                serverStatus.getIntValue("usedMemory"),
+                serverStatus.getIntValue("usedDisk"),
+                serverStatus.getIntValue("currentThreads"),
+                LocalDateTime.now()
+        );
+
+        //save the status to database
+        //System.out.println("serverDao:"+serverInfoDao);
+        try {
+            synchronized (number) {
+
+                if (number == 0) {
+                    synchronized (serverInfoDao){
+                        serverInfoDao.insertServerInfo(serverInfo);
+                    }
+                    number++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 }

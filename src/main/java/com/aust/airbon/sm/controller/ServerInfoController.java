@@ -23,7 +23,7 @@ public class ServerInfoController {
     private SeverInfoServiceImpl severInfoService;
 
     /*
-     * 获取最新的服务器信息, 从session中取
+     * 获取最新的服务器信息, 从servletContext中取
      * */
     @ResponseBody
     @RequestMapping("/latest")

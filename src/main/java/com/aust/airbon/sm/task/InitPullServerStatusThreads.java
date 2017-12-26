@@ -36,7 +36,7 @@ public class InitPullServerStatusThreads {
 
             try {
                 ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
-                service.scheduleAtFixedRate(pullThreadRunnable, 10, 5, TimeUnit.SECONDS);
+                service.scheduleAtFixedRate(pullThreadRunnable, 1, 5, TimeUnit.SECONDS);
                 //serversStatusLog.info(getIP()+"状态定时更新服务启动成功");
             } catch (Exception e){
                 //errorLog.fatal(getIP()+"状态定时更新服务启动失败！");

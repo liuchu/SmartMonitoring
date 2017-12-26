@@ -15,6 +15,7 @@
     <context:annotation-config />
 
     <context:component-scan base-package="com.aust.airbon.sm.util"/>
+    <context:component-scan base-package="com.aust.airbon.sm.mapper"/>
     <context:component-scan base-package="com.aust.airbon.sm.dao"/>
     <context:component-scan base-package="com.aust.airbon.sm.service"/>
 
@@ -40,7 +41,7 @@
         </property>
     </bean>
 
-<!--    <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName">
             <value>${jdbc.driverClassName}</value>
@@ -55,16 +56,16 @@
         <property name="password">
             <value>${jdbc.password}</value>
         </property>
-    </bean>-->
+    </bean>
 
-    <!--<bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="typeAliasesPackage" value="com.chuliu.alpha.pojo" />
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="typeAliasesPackage" value="com.aust.airbon.sm.pojo" />
         <property name="dataSource" ref="dataSource"/>
-        &lt;!&ndash;<property name="mapperLocations" value="classpath:**/*Mapper.xml"/>&ndash;&gt;
-    </bean>-->
+        <property name="mapperLocations" value="classpath:**/*Mapper.xml"/>
+    </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.chuliu.alpha.mapper"/>
+        <property name="basePackage" value="com.aust.airbon.sm.mapper"/>
     </bean>
 
     <!-- Database beans initial END -->

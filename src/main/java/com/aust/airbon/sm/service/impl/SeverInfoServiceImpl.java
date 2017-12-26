@@ -2,9 +2,11 @@ package com.aust.airbon.sm.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.aust.airbon.sm.dao.impl.ServerInfoDaoImpl;
 import com.aust.airbon.sm.pojo.ServerInformation;
 import com.aust.airbon.sm.service.SeverInfoService;
 import com.aust.airbon.sm.util.HttpServletContextHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.ServletContext;
@@ -23,6 +25,9 @@ public class SeverInfoServiceImpl implements SeverInfoService {
 
     private static List<String> serverIpList = null;
 
+    @Autowired
+    private ServerInfoDaoImpl serverInfoDao;
+
     public static void setParam(ServletContext context){
 
         synchronized (context) {
@@ -33,19 +38,9 @@ public class SeverInfoServiceImpl implements SeverInfoService {
 
     public String getLatestServersInfo() {
 
-        Enumeration<String> a = context.getAttributeNames();
-
-        while (a.hasMoreElements()){
-            String attr = a.nextElement();
-            System.out.println("!ATTRIBUTE:"+attr);
-        }
-
-
         if (serverIpList == null){
             serverIpList = (ArrayList)context.getAttribute("serverIpList");
         }
-
-        System.out.println("KKKKK "+serverIpList.size());
 
         JSONObject data = new JSONObject();
         JSONArray array = new JSONArray();
@@ -54,12 +49,12 @@ public class SeverInfoServiceImpl implements SeverInfoService {
             for (String ip : serverIpList){
                 System.out.println("IP IS:"+ip+"VALUE IS:"+context.getAttribute(ip));
                 array.add(context.getAttribute(ip));
-                /*data.put(ip,context.getAttribute(ip));
-                System.out.println(ip+"-----"+context.getAttribute(ip));*/
             }
         }
 
         data.put("response",array);
+
+        //System.out.println("userDao:"+serverInfoDao);
 
         return data.toJSONString();
     }

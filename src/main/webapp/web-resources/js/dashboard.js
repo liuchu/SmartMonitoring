@@ -11,18 +11,85 @@ $(document).ready(function(){
         type:"GET",
         success : function(data,status,jqXHR){
             //alert("status:"+jqXHR.status);
+            var CPUModelIntelNum = 0;
+            var CPUModelAMDNum = 0;
+
+            var onlineNum = 0;
+            var offlineNum = 0;
+
+            var statusBusyNum = 0;
+            var statusNormalNum = 0;
+            var statusFreeNum = 0;
+            var statusDeadNum = 0;
 
             if(jqXHR.status == 200){
                 var jsonObj = JSON.parse(data); //由JSON字符串转换为JSON对象
 
                 var jsonArray = jsonObj.response;
 
-                console.log(jsonArray.toString());
+                //解析JSON
+                for(ind in jsonArray){
+                    var str = jsonArray[ind];
 
-                /*for (var i=0;i<jsonArray.length;i++) {
+                    if ("Offline" == str) {
+                        offlineNum ++;
+                        statusDeadNum ++;
+                    }else {
+                        var singleServerJsonObj = JSON.parse(jsonArray[ind]);
+                        //统计在线的数量
+                        if (singleServerJsonObj.online) {
+                            onlineNum++;
+                        }
 
-                }*/
+                        //统计CPU
+                        if ("Intel" == singleServerJsonObj.CPU) {
+                            CPUModelIntelNum++;
+                        } else if ("AMD" == singleServerJsonObj.CPU){
+                            CPUModelAMDNum++;
+                        } else {
 
+                        }
+
+                        //统计状态
+                        var memoryUsage =  singleServerJsonObj.usedMemory/singleServerJsonObj.memory;
+                        if (memoryUsage<=0.20) {
+                            statusFreeNum++;
+                        }else if (memoryUsage>=0.80){
+                            statusBusyNum++;
+                        }else {
+                            statusNormalNum++;
+                        }
+
+                    }
+
+                }
+
+                /*console.log("INTEL:"+CPUModelIntelNum);
+                console.log("AMD:"+CPUModelAMDNum);
+                console.log("ONLINE:"+onlineNum);
+                console.log("OFFLINE:"+offlineNum);
+
+                console.log("BUSY:"+statusBusyNum);
+                console.log("NORMAL:"+statusNormalNum);
+                console.log("FREE:"+statusFreeNum);
+                console.log("DEAD:"+statusDeadNum);*/
+
+                //处理数据，生成图表
+                var data_arr1 = [(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2), 1-(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2)],
+                    color_arr1 = ['#F69E00','#36A3B4'],
+                    text_arr1 =['Intel', 'AMD'];
+
+                var data_arr2 = [onlineNum/10, 1-onlineNum/10],
+                    color_arr2 = ['#35DE1E', '#ED1C24'],
+                    text_arr2 =['Online', 'Offline'];
+
+                var data_arr3 = [statusNormalNum/10, statusBusyNum/10, statusFreeNum/10, statusDeadNum/10],
+                    color_arr3 = [ '#FFC90E', '#ED1C24', '#00FF21', '#7F7F7F'],
+                    text_arr3 =['Normal', 'Busy', 'Free', 'Dead'];
+
+                drawCircle('pei_1', data_arr1, color_arr1, text_arr1);
+                drawCircle('pei_2', data_arr2, color_arr2, text_arr2);
+                drawCircle('pei_3', data_arr3, color_arr3, text_arr3);
 
             }else{
                 $("#system_message").html("Server internal error");
@@ -35,7 +102,7 @@ $(document).ready(function(){
 
     });
 
-    var drawCircle = function(canvasId, data_arr, color_arr, text_arr){
+    function drawCircle(canvasId, data_arr, color_arr, text_arr){
         var drawing = document.getElementById(canvasId);
         if(drawing.getContext) {
             var context = drawing.getContext('2d');
@@ -69,26 +136,6 @@ $(document).ready(function(){
             }
 
         }
-    };
-
-    var init = function(){
-        var data_arr1 = [0.70, 0.30],
-            color_arr1 = ['#F69E00','#36A3B4'],
-            text_arr1 =['Intel', 'AMD'];
-
-        var data_arr2 = [0.80, 0.20],
-            color_arr2 = ['#35DE1E', '#ED1C24'],
-            text_arr2 =['Online', 'Offline'];
-
-        var data_arr3 = [0.60, 0.10, 0.10, 0.20],
-            color_arr3 = [ '#FFC90E', '#ED1C24', '#00FF21', '#7F7F7F'],
-            text_arr3 =['Normal', 'Busy', 'Free', 'Dead'];
-
-        drawCircle('pei_1', data_arr1, color_arr1, text_arr1);
-        drawCircle('pei_2', data_arr2, color_arr2, text_arr2);
-        drawCircle('pei_3', data_arr3, color_arr3, text_arr3);
-    };
-
-    init();
+    }
 
 });
