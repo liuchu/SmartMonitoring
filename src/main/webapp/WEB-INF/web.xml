@@ -6,7 +6,7 @@
 
   <display-name>Archetype Created Web Application</display-name>
   <welcome-file-list>
-    <welcome-file>monitoring</welcome-file>
+    <welcome-file>/monitoring</welcome-file>
   </welcome-file-list>
 
   <!-- default mapping, allow access .css .js files -->
@@ -36,6 +36,20 @@
     <url-pattern>/</url-pattern>
   </servlet-mapping>
 
+  <!-- Spring IOC Container -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath*:applicationContext.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
 
+  <!-- Listener Servlet creation-->
+  <listener>
+
+    <listener-class>com.aust.airbon.sm.listener.ServletContextListenerImpl</listener-class>
+
+  </listener>
 
 </web-app>

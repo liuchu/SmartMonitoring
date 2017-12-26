@@ -16,25 +16,15 @@ import javax.servlet.ServletContext;
  * Created by no one on 2017/12/25.
  *
  */
-public class InstantiationTracingBeanPostProcessor implements ApplicationListener<ContextRefreshedEvent> {
-
-    private int tag = 0;
+public class ApplicationListenerImpl implements ApplicationListener<ContextRefreshedEvent> {
 
     public void onApplicationEvent(ContextRefreshedEvent contextRefreshedEvent) {
 
-        System.out.println("HAHAHA"+contextRefreshedEvent);
-        System.out.println("bbbbbb"+contextRefreshedEvent.getApplicationContext());
-        System.out.println("cccccc"+contextRefreshedEvent.getApplicationContext().getDisplayName());
-
-        if(contextRefreshedEvent.getApplicationContext().getDisplayName().equals("WebApplicationContext for namespace 'spring-mvc-servlet'")){
+        if(contextRefreshedEvent.getApplicationContext().getDisplayName().equals("Root WebApplicationContext")){
             //Set context to Service SeverInfoServiceImpl
-            System.out.println("XXXXXX");
-            ServletContext context = ContextLoader.getCurrentWebApplicationContext().getServletContext();
-            System.out.println("WEB CONTEXT:"+context);
-            SeverInfoServiceImpl.setParam(context);
 
             ApplicationContext appContext = ApplicationContextHelper.getApplicationContext();
-            System.out.println("Spring CONTEXT:"+context);
+            System.out.println("Spring IOC CONTEXT:"+appContext);
             //Get bean to init lazy bean
             //Init project data
             InitProjectData initData = (InitProjectData)appContext.getBean("initData");
@@ -43,7 +33,6 @@ public class InstantiationTracingBeanPostProcessor implements ApplicationListene
             InitPullServerStatusThreads initTasks = (InitPullServerStatusThreads)appContext.getBean("initPullTasks");
             initTasks.startPullServerStatus();
 
-            tag++;
         }
     }
 }

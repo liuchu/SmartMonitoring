@@ -12,8 +12,6 @@ import java.util.List;
  */
 public class InitProjectData {
 
-    private static ServletContext context = HttpServletContextHelper.getHttpContext();
-
     public void loadServerIpList(){
         List<String> serverIpList = new ArrayList<String>();
         serverIpList.add("211.211.211.101");
@@ -27,7 +25,7 @@ public class InitProjectData {
         serverIpList.add("211.211.211.109");
         serverIpList.add("211.211.211.110");
 
-        context.setAttribute("serverIpList",serverIpList);
+        HttpServletContextHelper.getServletContext().setAttribute("serverIpList",serverIpList);
 
         System.out.println("!!!LOAD SERVER DATA!!!");
 

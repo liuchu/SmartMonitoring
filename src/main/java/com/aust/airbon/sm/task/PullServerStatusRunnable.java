@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.aust.airbon.sm.dao.ServerInfoDao;
 import com.aust.airbon.sm.pojo.ServerInformation;
 import com.aust.airbon.sm.util.HttpServletContextHelper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.ContextLoader;
 
 import javax.servlet.ServletContext;
@@ -15,6 +16,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.SocketTimeoutException;
+import java.util.Enumeration;
 
 /**
  * Created by no one on 2017/12/25.
@@ -24,9 +26,15 @@ public class PullServerStatusRunnable implements Runnable {
 
     private String ip;
     private int dataTransferPort;
-    private static ServletContext context = HttpServletContextHelper.getHttpContext();
+    private static ServletContext context = null;
 
+    @Autowired
     private ServerInfoDao serverInfoDao;
+
+    public static void setParam(ServletContext context){
+        PullServerStatusRunnable.context = context;
+    }
+
 
     public PullServerStatusRunnable(String ip, int dataTransferPort) {
         this.ip = ip;
@@ -46,9 +54,13 @@ public class PullServerStatusRunnable implements Runnable {
      */
     public void run() {
 
+        if (PullServerStatusRunnable.context == null) {
+            return;
+        }
+
         try {
             Socket socket = new Socket("localhost",dataTransferPort);
-            System.out.println(socket.getSoTimeout());
+            //System.out.println(socket.getSoTimeout());
             socket.setSoTimeout(1000*10);
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -81,27 +93,33 @@ public class PullServerStatusRunnable implements Runnable {
                     serverStatus.getIntValue("currentThreads")
                     );
 
-            //save to web application context
-            synchronized (context) {
-                context.setAttribute(ip,jsonString);
-            }
+            //save to web servlet context
+            context.setAttribute(ip,jsonString);
+            //System.out.println("Just now:"+ip+"->"+context.getAttribute(ip));
+
+            /*Enumeration<String> a = context.getAttributeNames();
+
+            while (a.hasMoreElements()){
+                String attr = a.nextElement();
+                System.out.println("!ATTRIBUTE:"+attr);
+            }*/
 
             //save the status to database
-            synchronized (serverInfoDao){
+            /*synchronized (serverInfoDao){
                 serverInfoDao.insertServerInfo(serverInfo);
-            }
+            }*/
 
-            System.out.println(ip+"PULL SERVER STATUS");
+            //System.out.println(ip+"PULL SERVER STATUS"+jsonString);
 
         } catch (SocketTimeoutException e){
             context.setAttribute(ip,"Offline");
-            System.out.println("This server is offline!!");
+            System.out.println("SocketTimeoutException: This server is offline!!");
         } catch (SocketException e) {
             context.setAttribute(ip,"Offline");
-            System.out.println("This server is offline!!");
+            System.out.println("SocketException: This server is offline!!");
         } catch (IOException e) {
             context.setAttribute(ip,"Offline");
-            System.out.println("This server is offline!!");
+            System.out.println("IOException: This server is offline!!");
         }
 
     }

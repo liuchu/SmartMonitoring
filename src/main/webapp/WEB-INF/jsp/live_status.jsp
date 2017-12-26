@@ -15,20 +15,19 @@
 
 <jsp:include page="common/menu.jsp"/>
 
-<div class="container">
+<div class="container" style="width:100%;">
 
     <div class="row clearfix" style="margin-top: 130px">
-        <%--<div class="col-md-2 column">
+        <div class="col-md-2 column">
 
-        </div>--%>
-        <div class="col-md-12 column">
+        </div>
+        <div class="col-md-10 column">
 
-            <h3 class="panel-title">
+            <h2 class="panel-title" style="margin-left: 2%;color: white">
                 <spring:message code="menu.live"/>
-            </h3>
+            </h2>
 
-            <table class="table" style="color: white">
-                <>
+            <table class="table" style="color: white;margin-left: 2%">
                 <tr>
                     <th>
                         <spring:message code="live.table_ip"/>

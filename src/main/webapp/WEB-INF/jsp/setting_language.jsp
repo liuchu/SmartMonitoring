@@ -18,13 +18,15 @@
 <div class="container">
     <div class="row clearfix" style="margin-top: 10%">
 
-        <div class="col-md-12 column">
+        <div class="col-md-2 column">
+
+        <div class="col-md-10 column">
             <%--<label><spring:message code="profile.personal_setting"/></label>--%>
-            <select class="form-control" id="select_language">
+            <select class="form-control" id="select_language" style="margin-left: 150%">
                 <option>English</option>
                 <option>中文</option>
             </select>
-            <button type="button" class="btn btn-default">
+            <button type="button" class="btn btn-default" style="margin-left: 150%">
                 <a id="select_language_submit" href="/setting/changeLanguage?lang=en_US"><spring:message code="settings.language.submit"/> </a>
             </button>
 

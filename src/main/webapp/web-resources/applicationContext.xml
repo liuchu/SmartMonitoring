@@ -14,6 +14,22 @@
 
     <context:annotation-config />
 
+    <context:component-scan base-package="com.aust.airbon.sm.util"/>
+    <context:component-scan base-package="com.aust.airbon.sm.dao"/>
+    <context:component-scan base-package="com.aust.airbon.sm.service"/>
+
+    <bean id="instantiationProcessor" class="com.aust.airbon.sm.listener.ApplicationListenerImpl">
+    </bean>
+
+    <bean id="servletContextListenerImpl" class="com.aust.airbon.sm.listener.ServletContextListenerImpl">
+    </bean>
+
+    <bean id="initData" class="com.aust.airbon.sm.task.InitProjectData" lazy-init="true">
+    </bean>
+
+    <bean id="initPullTasks" class="com.aust.airbon.sm.task.InitPullServerStatusThreads" lazy-init="true">
+    </bean>
+
     <!-- Database beans initial BEGIN -->
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">

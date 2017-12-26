@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class SettingController {
 
-    @RequestMapping("changeLanguage")
+    @RequestMapping("/changeLanguage")
     public ModelAndView changeLanguage(HttpServletRequest request, String lang){
 
         //logger.debug("切换语言中。。。当前语言为:"+lang);

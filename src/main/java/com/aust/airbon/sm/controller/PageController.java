@@ -18,19 +18,19 @@ public class PageController {
         return mav;
     }
 
-    @RequestMapping("live/basic")
+    @RequestMapping("/live/basic")
     public ModelAndView viewLiveStatus(){
         ModelAndView mav = new ModelAndView("live_status");
         return mav;
     }
 
-    @RequestMapping("report/line")
+    @RequestMapping("/report/line")
     public ModelAndView viewHistoryReportLineReport(){
         ModelAndView mav = new ModelAndView("history_report_line_chart");
         return mav;
     }
 
-    @RequestMapping("setting_language")
+    @RequestMapping("/setting_language")
     public ModelAndView viewSettingLanguage(){
         ModelAndView mav = new ModelAndView("setting_language");
         return mav;

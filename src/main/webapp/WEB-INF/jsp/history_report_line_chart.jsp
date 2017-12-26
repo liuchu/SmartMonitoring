@@ -15,15 +15,19 @@
         }
     </style>
 </head>
+
 <body>
 
 <jsp:include page="common/menu.jsp"/>
 
-<div class="container">
+<div class="container" style="color: snow">
 
     <div class="row clearfix" style="margin-top: 130px">
-        <div class="col-md-12 column">
-            <div class="btn-group open">
+
+        <div class="col-md-2 column"> </div>
+
+        <div class="col-md-10 column">
+            <div class="btn-group open" style="margin-left: 2%">
                 <select class="form-control" id="select_ip">
                     <option>211.211.211.101</option>
                     <option>211.211.211.102</option>
@@ -36,48 +40,111 @@
                     <option>211.211.211.109</option>
                     <option>211.211.211.110</option>
                 </select>
-                <button type="button" class="btn btn-default">
-                    <a id="select_language_submit"><spring:message code="report.submit"/> </a>
-                </button>
+
             </div>
-            <div class="btn-group open">
+
+            <%--<div class="btn-group open" >
                 <select class="form-control" id="select_chart">
                     <option><spring:message code="report.submit.chart_option.line"/></option>
                     <option><spring:message code="report.submit.chart_option.bar"/></option>
                 </select>
+            </div>--%>
+
+            <div class="btn-group open">
+                <input type="date" value="2017-12-01" width="100%"/>
+            </div>
+
+            <br/>
+
+            <div style="margin-left: 2%">
+                <button type="button" class="btn btn-default">
+                    <a id="select_language_submit"><spring:message code="report.submit"/> </a>
+                </button>
 
             </div>
+
         </div>
-        <div class="col-md-12 column" style="margin-top: 50px">
-            <label style="color: white"><spring:message code="report.label.current_ip"/>:</label>
-            <span style="color: darkgreen">211.211.211.101</span>
+
+    </div>
+
+
+    <div class="row clearfix">
+        <div class="col-md-2 column"> </div>
+        <div class="col-md-10 column">
+            <div style="margin-left: 2%">
+                <label style="color: white"><spring:message code="report.label.current_ip"/>:</label>
+                <span style="color: darkgreen">211.211.211.101</span>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row clearfix">
+
+        <div class="col-md-2 column">
+        </div>
+
+        <div class="col-md-10 column">
+
+            <div style="margin-left: 2%">
+                <h2><spring:message code="report.chart_title.cpu"/></h2>
+                <div class="btn-group btn-group-xs" style="margin-left: 3%;alignment: right">
+                    <button class="btn btn-success" type="button">
+                        <em class="glyphicon glyphicon-align-left">
+
+                        </em> <spring:message code="report.submit.chart_option.line"/>
+                    </button>
+                    <button class="btn btn-warning" type="button">
+                        <em class="glyphicon glyphicon-align-center">
+
+                        </em> <spring:message code="report.submit.chart_option.bar"/>
+                    </button>
+                </div>
+                <canvas id="line_chart_cpu" height="450" width="1000"></canvas>
+            </div>
+
         </div>
     </div>
 
     <div class="row clearfix">
+        <div class="col-md-2 column"> </div>
 
-        <div class="col-md-12 column">
+            <div class="col-md-10 column">
 
-            <h3><spring:message code="report.chart_title.cpu"/></h3>
-            <canvas id="line_chart_cpu" height="450" width="1000"></canvas>
-        </div>
+                <div style="margin-left: 2%">
+                    <h2><spring:message code="report.chart_title.cpu"/></h2>
+                    <canvas id="line_chart_memory" height="450" width="1000"></canvas>
+                </div>
 
-        <div class="col-md-12 column">
-            <h3><spring:message code="report.chart_title.memory"/></h3>
-            <canvas id="line_chart_memory" height="450" width="1000"></canvas>
-        </div>
-
-        <div class="col-md-12 column">
-            <h3><spring:message code="report.chart_title.disk"/></h3>
-            <canvas id="line_chart_thread" height="450" width="1000"></canvas>
-        </div>
-
-        <div class="col-md-12 column">
-            <h3><spring:message code="report.chart_title.thread"/></h3>
-            <canvas id="line_chart_disk" height="450" width="1000"></canvas>
-        </div>
-
+            </div>
     </div>
+
+    <div class="row clearfix">
+        <div class="col-md-2 column"> </div>
+
+            <div class="col-md-10 column">
+
+                <div style="margin-left: 2%">
+                    <h2><spring:message code="report.chart_title.cpu"/></h2>
+                    <canvas id="line_chart_thread" height="450" width="1000"></canvas>
+                </div>
+
+            </div>
+    </div>
+
+    <div class="row clearfix">
+        <div class="col-md-2 column"> </div>
+
+            <div class="col-md-10 column">
+
+                <div style="margin-left: 2%">
+                    <h3><spring:message code="report.chart_title.cpu"/></h3>
+                    <canvas id="line_chart_disk" height="450" width="1000"></canvas>
+                </div>
+
+            </div>
+    </div>
+
 </div>
 
 <script src="${pageContext.request.contextPath}/web-resources/js/history_report_line_chart.js"></script>
