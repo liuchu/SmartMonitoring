@@ -34,13 +34,15 @@ public class PullServerStatusRunnable implements Runnable {
 
     private static Integer number = 0;
 
-    //@Autowired
     private static ServerInfoDaoImpl serverInfoDao = null;
 
     public static void setParam(ServletContext context){
         PullServerStatusRunnable.context = context;
     }
 
+    public static void setDao(ServerInfoDaoImpl serverInfoDao){
+        PullServerStatusRunnable.serverInfoDao = serverInfoDao;
+    }
 
     public PullServerStatusRunnable(String ip, int dataTransferPort) {
         this.ip = ip;
@@ -64,11 +66,11 @@ public class PullServerStatusRunnable implements Runnable {
             return;
         }
 
-        synchronized (serverInfoDao) {
-            if (serverInfoDao==null) {
-                serverInfoDao = (ServerInfoDaoImpl)ApplicationContextHelper.getApplicationContext().getBean("serverInfoDao");
-            }
-        }
+        /*if (serverInfoDao == null) {
+            System.out.println("DAO IS NULL");
+        } else {
+            System.out.println("DAO IS:"+serverInfoDao);
+        }*/
 
         String jsonString = "";
 
@@ -125,18 +127,23 @@ public class PullServerStatusRunnable implements Runnable {
         );
 
         //save the status to database
-        //System.out.println("serverDao:"+serverInfoDao);
+        System.out.println("serverDao:"+serverInfoDao);
         try {
             synchronized (number) {
+                synchronized (serverInfoDao){
+                    System.out.println("TRIED TO INSERT A RECORD");
+                    int affectedRow = serverInfoDao.insertServerInfo(serverInfo);
 
-                if (number == 0) {
-                    synchronized (serverInfoDao){
-                        serverInfoDao.insertServerInfo(serverInfo);
+                    if (affectedRow == 0) {
+                        System.out.println("FAILED!");
+                    } else {
+                        System.out.println("SUCCESS!");
                     }
-                    number++;
                 }
+
             }
         } catch (Exception e) {
+            System.out.println("Could NOT write into database!!!");
             e.printStackTrace();
         }
 

@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-       xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xmlns:cache="http://www.springframework.org/schema/cache"
        xsi:schemaLocation="
-     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
-     http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
-     http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.0.xsd
-     http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
-     http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-     http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/jdbc
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd
+    http://www.springframework.org/schema/cache
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd
+    http://www.springframework.org/schema/aop
+    http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/util
+    http://www.springframework.org/schema/util/spring-util.xsd">
 
-    <context:annotation-config />
+<context:annotation-config />
 
     <context:component-scan base-package="com.aust.airbon.sm.util"/>
     <context:component-scan base-package="com.aust.airbon.sm.mapper"/>
     <context:component-scan base-package="com.aust.airbon.sm.dao"/>
     <context:component-scan base-package="com.aust.airbon.sm.service"/>
 
-    <bean id="instantiationProcessor" class="com.aust.airbon.sm.listener.ApplicationListenerImpl">
+    <bean id="instantiationProcessor" class="com.aust.airbon.sm.listener.ApplicationListenerImpl" >
     </bean>
 
     <bean id="servletContextListenerImpl" class="com.aust.airbon.sm.listener.ServletContextListenerImpl">
@@ -41,11 +47,12 @@
         </property>
     </bean>
 
-    <bean id="dataSource"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSourceMonitor"  class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
         <property name="driverClassName">
             <value>${jdbc.driverClassName}</value>
         </property>
+
         <property name="url">
             <value>${jdbc.url}</value>
 
@@ -56,17 +63,27 @@
         <property name="password">
             <value>${jdbc.password}</value>
         </property>
+
     </bean>
 
-    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="typeAliasesPackage" value="com.aust.airbon.sm.pojo" />
-        <property name="dataSource" ref="dataSource"/>
-        <property name="mapperLocations" value="classpath:**/*Mapper.xml"/>
+        <property name="dataSource" ref="dataSourceMonitor"/>
+        <property name="mapperLocations" value="classpath:serverInfoMapper.xml"/>
     </bean>
 
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="basePackage" value="com.aust.airbon.sm.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
+    <!-- (事务管理)transaction manager, use JtaTransactionManager for global tx -->
+    <bean id="transactionManager"
+          class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSourceMonitor" />
+    </bean>
+
+
 
     <!-- Database beans initial END -->
 

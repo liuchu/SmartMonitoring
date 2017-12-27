@@ -1,5 +1,8 @@
 package com.aust.airbon.sm.task;
 
+import com.aust.airbon.sm.dao.impl.ServerInfoDaoImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Executors;
@@ -14,7 +17,13 @@ public class InitPullServerStatusThreads {
 
     private Map<String,Integer> serverList = new HashMap<String, Integer>();
 
-    public InitPullServerStatusThreads() {
+    private final ServerInfoDaoImpl serverInfoDao;
+
+    @Autowired
+    public InitPullServerStatusThreads(ServerInfoDaoImpl serverInfoDao) {
+
+        this.serverInfoDao = serverInfoDao;
+
         serverList.put("211.211.211.101",10201);
         serverList.put("211.211.211.102",10204);
         serverList.put("211.211.211.103",10207);
@@ -29,6 +38,10 @@ public class InitPullServerStatusThreads {
 
 
     public void startPullServerStatus(){
+
+        PullServerStatusRunnable.setDao(serverInfoDao);
+
+        //System.out.println("The dao:"+serverInfoDao);
 
         for (String ip :serverList.keySet()) {
 

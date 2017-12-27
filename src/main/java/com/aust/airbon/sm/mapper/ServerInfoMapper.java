@@ -12,7 +12,7 @@ import java.util.List;
 @Component
 public interface ServerInfoMapper {
 
-    int insertServerInfo(ServerInformation user);
+    int mapperInsertServerInfo(ServerInformation serverInformation);
 
     /*public List<ServerInformation> selectServerInfoAtDay();*/
 

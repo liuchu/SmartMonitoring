@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.aust.airbon.sm.mapper.ServerInfoMapper">
+
+    <insert id="mapperInsertServerInfo" parameterType="ServerInformation" >
+        INSERT
+        INTO server_info_history ( ip, cpu, memory, disk, max_allowed_threads, online, used_cpu,
+        used_memory, used_disk, current_threads, record_time )
+        VALUES (#{IP},#{CPU},#{memory},#{disk},#{maxAllowedThreads},#{online},#{usedCPU},
+        #{usedMemory},#{usedDisk},#{currentThreads},#{recordTime})
+    </insert>
+
+
+</mapper>

@@ -15,12 +15,19 @@ import java.util.ArrayList;
 @Repository("serverInfoDao")
 public class ServerInfoDaoImpl implements ServerInfoDao {
 
+
+    final private ServerInfoMapper serverInfoMapper;
+
     @Autowired
-    ServerInfoMapper serverInfoMapper;
+    public ServerInfoDaoImpl(ServerInfoMapper serverInfoMapper) {
+        this.serverInfoMapper = serverInfoMapper;
+    }
+
 
     public int insertServerInfo(ServerInformation serverInformation) {
 
-        int affectedRow = serverInfoMapper.insertServerInfo(serverInformation);
+        int affectedRow = 0;
+        affectedRow = serverInfoMapper.mapperInsertServerInfo(serverInformation);
         return affectedRow;
 
     }

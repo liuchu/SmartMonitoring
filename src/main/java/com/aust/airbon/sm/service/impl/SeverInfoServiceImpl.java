@@ -23,10 +23,12 @@ public class SeverInfoServiceImpl implements SeverInfoService {
 
     private static ServletContext context = null;
 
-    private static List<String> serverIpList = null;
+    private static ArrayList<String> serverIpList = null;
 
-    @Autowired
-    private ServerInfoDaoImpl serverInfoDao;
+    /*@Autowired
+    private ServerInfoDaoImpl serverInfoDao;*/
+
+
 
     public static void setParam(ServletContext context){
 
@@ -39,7 +41,7 @@ public class SeverInfoServiceImpl implements SeverInfoService {
     public String getLatestServersInfo() {
 
         if (serverIpList == null){
-            serverIpList = (ArrayList)context.getAttribute("serverIpList");
+            serverIpList = (ArrayList<String>)context.getAttribute("serverIpList");
         }
 
         JSONObject data = new JSONObject();

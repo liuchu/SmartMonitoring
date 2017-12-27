@@ -1,0 +1,31 @@
+#Create database "smart_monitoring"
+
+
+#Create user "monitor" with password "monitor"
+
+CREATE USER 'monitor'@'localhost' IDENTIFIED BY 'monitor';
+
+GRANT GRANT OPTION ON *.* TO 'monitor'@'localhost';
+
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, RELOAD, SHUTDOWN, PROCESS, FILE, REFERENCES, INDEX, ALTER, SHOW DATABASES, SUPER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, REPLICATION SLAVE, REPLICATION CLIENT, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, CREATE USER, EVENT, TRIGGER ON *.* TO 'monitor'@'localhost';
+
+GRANT SELECT, INSERT, UPDATE, REFERENCES, DELETE, CREATE, DROP, ALTER, INDEX, TRIGGER, CREATE VIEW, SHOW VIEW, EXECUTE, ALTER ROUTINE, CREATE ROUTINE, CREATE TEMPORARY TABLES, LOCK TABLES, EVENT ON `smart\_monitoring`.* TO 'monitor'@'localhost';
+
+GRANT GRANT OPTION ON `smart\_monitoring`.* TO 'monitor'@'localhost';
+
+#Create table "server_info_history"
+CREATE TABLE `server_info_history` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ip` varchar(50) NOT NULL,
+  `cpu` varchar(50) NOT NULL,
+  `memory` int(12) NOT NULL,
+  `disk` int(12) NOT NULL,
+  `max_allowed_threads` int(12) NOT NULL,
+  `online` tinyint(1) NOT NULL DEFAULT '1',
+  `used_cpu` int(12) NOT NULL,
+  `used_memory` int(12) NOT NULL,
+  `used_disk` int(12) NOT NULL,
+  `current_threads` int(12) NOT NULL,
+  `record_time` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
