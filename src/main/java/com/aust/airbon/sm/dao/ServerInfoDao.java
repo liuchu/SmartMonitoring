@@ -16,5 +16,5 @@ public interface ServerInfoDao {
 
     //从数据库获取·一台·服务器的具体某一天的历史数据。24小时，每小时取这一个小时内所有数据的平均值
 
-    public ArrayList<ServerInformation> getServerInfoAtDay(String ip);
+    public ServerInformation selectOneHourServerInfoAtDay(String ip, String date, int hour);
 }

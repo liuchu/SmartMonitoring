@@ -101,13 +101,22 @@ public class PullServerStatusRunnable implements Runnable {
             //System.out.println(ip+"PULL SERVER STATUS"+jsonString);
 
         } catch (SocketTimeoutException e){
-            context.setAttribute(ip,"Offline");
+            JSONObject obj = new JSONObject();
+            obj.put("IP",ip);
+            obj.put("online",false);
+            context.setAttribute(ip,obj.toJSONString());
             System.out.println(ip+"SocketTimeoutException: This server is offline!!");
         } catch (SocketException e) {
-            context.setAttribute(ip,"Offline");
+            JSONObject obj = new JSONObject();
+            obj.put("IP",ip);
+            obj.put("online",false);
+            context.setAttribute(ip,obj.toJSONString());
             System.out.println(ip+"SocketException: This server is offline!!");
         } catch (IOException e) {
-            context.setAttribute(ip,"Offline");
+            JSONObject obj = new JSONObject();
+            obj.put("IP",ip);
+            obj.put("online",false);
+            context.setAttribute(ip,obj.toJSONString());
             System.out.println(ip+"IOException: This server is offline!!");
         }
 
@@ -127,7 +136,7 @@ public class PullServerStatusRunnable implements Runnable {
         );
 
         //save the status to database
-        System.out.println("serverDao:"+serverInfoDao);
+        //System.out.println("serverDao:"+serverInfoDao);
         try {
             synchronized (number) {
                 synchronized (serverInfoDao){
@@ -146,7 +155,6 @@ public class PullServerStatusRunnable implements Runnable {
             System.out.println("Could NOT write into database!!!");
             e.printStackTrace();
         }
-
 
     }
 }

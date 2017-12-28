@@ -13,5 +13,37 @@
         #{usedMemory},#{usedDisk},#{currentThreads},#{recordTime})
     </insert>
 
+    <select id="mapperSelectOneHourServerInfoAtDay" resultMap="averageServerInfo" >
+        select max(`memory`) as max_memory, max(`disk`) as max_disk, max(`max_allowed_threads`) as max_allowed_max_threads,
+			 ROUND(AVG(`used_cpu`)) as avg_cpu, ROUND(AVG(`used_memory`)) as avg_memory,
+			 ROUND(AVG(`used_disk`)) as avg_disk, ROUND(AVG(`current_threads`)) as avg_threads
+        from server_info_history
+        where ip = #{0}
+        and record_time between #{1} and #{2}
+    </select>
+    
+    <resultMap id="averageServerInfo" type="ServerInformation">
+
+        <constructor>
+            <arg javaType="_int" column="max_memory"/>
+            <arg javaType="_int" column="max_disk"/>
+            <arg javaType="_int" column="max_allowed_max_threads"/>
+            <arg javaType="_int" column="avg_cpu"/>
+            <arg javaType="_int" column="avg_memory"/>
+            <arg javaType="_int" column="avg_disk"/>
+            <arg javaType="_int" column="avg_threads"/>
+        </constructor>
+
+        <!--<id property="id" column="avg_memory" />-->
+        <result property="memory" column="max_memory"/>
+        <result property="disk" column="max_disk"/>
+        <result property="maxAllowedThreads" column="max_allowed_max_threads"/>
+        <result property="usedCPU" column="avg_cpu"/>
+        <result property="usedMemory" column="avg_memory"/>
+        <result property="usedDisk" column="avg_disk"/>
+        <result property="currentThreads" column="avg_threads"/>
+
+    </resultMap>
+
 
 </mapper>

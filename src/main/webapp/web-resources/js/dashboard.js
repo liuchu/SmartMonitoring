@@ -31,13 +31,14 @@ $(document).ready(function(){
                 for(ind in jsonArray){
                     var str = jsonArray[ind];
 
-                    if ("Offline" == str) {
+                    var singleServerJsonObj = JSON.parse(jsonArray[ind]);
+
+                    if (!singleServerJsonObj["online"]) {
                         offlineNum ++;
                         statusDeadNum ++;
                     }else {
-                        var singleServerJsonObj = JSON.parse(jsonArray[ind]);
-                        //统计在线的数量
-                        if (singleServerJsonObj.online) {
+
+                        if (singleServerJsonObj["online"]) {
                             onlineNum++;
                         }
 
@@ -64,22 +65,12 @@ $(document).ready(function(){
 
                 }
 
-                /*console.log("INTEL:"+CPUModelIntelNum);
-                console.log("AMD:"+CPUModelAMDNum);
-                console.log("ONLINE:"+onlineNum);
-                console.log("OFFLINE:"+offlineNum);
-
-                console.log("BUSY:"+statusBusyNum);
-                console.log("NORMAL:"+statusNormalNum);
-                console.log("FREE:"+statusFreeNum);
-                console.log("DEAD:"+statusDeadNum);*/
-
                 //处理数据，生成图表
                 var data_arr1 = [(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2), 1-(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2)],
                     color_arr1 = ['#F69E00','#36A3B4'],
                     text_arr1 =['Intel', 'AMD'];
 
-                var data_arr2 = [onlineNum/10, 1-onlineNum/10],
+                var data_arr2 = [onlineNum/10, offlineNum/10],
                     color_arr2 = ['#35DE1E', '#ED1C24'],
                     text_arr2 =['Online', 'Offline'];
 

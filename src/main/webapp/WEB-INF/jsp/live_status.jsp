@@ -17,6 +17,8 @@
 
 <div class="container" style="width:100%;">
 
+    <h1 id="system_message_live" style="text-align:center;color: red"></h1>
+
     <div class="row clearfix" style="margin-top: 130px">
         <div class="col-md-2 column">
 
@@ -27,8 +29,8 @@
                 <spring:message code="menu.live"/>
             </h2>
 
-            <table class="table" style="color: white;margin-left: 2%">
-                <tr>
+            <table class="table" id="live_status" style="color: white;margin-left: 2%">
+                <tr >
                     <th>
                         <spring:message code="live.table_ip"/>
                     </th>
@@ -59,123 +61,328 @@
 
                 </tr>
 
-                <tbody>
+                <tbody id="live_status_tbody">
 
-                <tr>
+                <tr id="tr0">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
                     <td>
                         ?
                     </td>
-                    <td>
+                    <td >
                         ?
                     </td>
-                    <td>
+                    <td >
                         ?
                     </td>
-                    <td>
+                    <td >
                         ?
                     </td>
-                    <td>
+                    <td >
                         ?
                     </td>
-                    <td>
-                        ?
-                    </td>
-                    <td>
-                        ?
-                    </td>
-                    <td>
+                    <td >
                         <input type="text" style="width: 80px"/>
                         <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
                     </td>
-                    <td>
-                        <button><spring:message code="live.table_start_stop"/></button>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>
-                        1.1.1.1
-                    </td>
-                    <td>
-                        Online
-                    </td>
-                    <td>
-                        80%
-                    </td>
-                    <td>
-                        4096/8194
-                    </td>
-                    <td>
-                        512000/512000
-                    </td>
-                    <td>
-                        200/500
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
                     </td>
 
                 </tr>
 
-                <tr>
+                <tr id="tr1">
+                    <td >
+                        ?
+                    </td >
                     <td>
-                        1.1.1.1
-                    </td>
+                        ?
+                    </td >
                     <td>
-                        Online
+                        ?
                     </td>
-                    <td>
-                        80%
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        4096/8194
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        512000/512000
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        200/500
+                    <td >
+                        ?
                     </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
                 </tr>
 
-                <tr>
+                <tr id="tr2">
+                    <td >
+                        ?
+                    </td >
                     <td>
-                        1.1.1.1
-                    </td>
+                        ?
+                    </td >
                     <td>
-                        Online
+                        ?
                     </td>
-                    <td>
-                        80%
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        4096/8194
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        512000/512000
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        200/500
+                    <td >
+                        ?
                     </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
                 </tr>
 
-                <tr>
+                <tr id="tr3">
+                    <td >
+                        ?
+                    </td >
                     <td>
-                        1.1.1.1
-                    </td>
+                        ?
+                    </td >
                     <td>
-                        Online
+                        ?
                     </td>
-                    <td>
-                        80%
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        4096/8194
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        512000/512000
+                    <td >
+                        ?
                     </td>
-                    <td>
-                        200/500
+                    <td >
+                        ?
                     </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
                 </tr>
+
+                <tr id="tr4">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
+                <tr id="tr5">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
+                <tr id="tr6">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
+                <tr id="tr7">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
+                <tr id="tr8">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
+                <tr id="tr9">
+                    <td >
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td >
+                    <td>
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        ?
+                    </td>
+                    <td >
+                        <input type="text" style="width: 80px"/>
+                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                    </td>
+                    <td >
+                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                    </td>
+
+                </tr>
+
 
                 </tbody>
             </table>
@@ -184,6 +391,8 @@
     </div>
 
 </div>
+
+<script src="${pageContext.request.contextPath}/web-resources/js/live_status.js"> </script>
 
 </body>
 </html>

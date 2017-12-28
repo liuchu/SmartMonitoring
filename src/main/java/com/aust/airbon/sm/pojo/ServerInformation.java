@@ -1,5 +1,9 @@
 package com.aust.airbon.sm.pojo;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import jdk.nashorn.internal.parser.JSONParser;
+
 import java.time.LocalDateTime;
 
 /**
@@ -28,6 +32,7 @@ public class ServerInformation {
     private LocalDateTime recordTime;
 
     public ServerInformation() {
+
     }
 
     public ServerInformation(String IP, String CPU, int memory, int disk,
@@ -47,22 +52,16 @@ public class ServerInformation {
         this.recordTime = recordTime;
     }
 
-    public ServerInformation(int id, String IP, String CPU, int memory, int disk,
-                             int maxAllowedThreads, boolean online, int usedCPU,
-                             int usedMemory, int usedDisk, int currentThreads,
-                             LocalDateTime recordTime) {
-        this.id = id;
-        this.IP = IP;
-        this.CPU = CPU;
+    public ServerInformation(int memory, int disk, int maxAllowedThreads,
+                             int usedCPU, int usedMemory, int usedDisk, int currentThreads) {
         this.memory = memory;
         this.disk = disk;
         this.maxAllowedThreads = maxAllowedThreads;
-        this.online = online;
         this.usedCPU = usedCPU;
         this.usedMemory = usedMemory;
         this.usedDisk = usedDisk;
         this.currentThreads = currentThreads;
-        this.recordTime = recordTime;
+
     }
 
     public int getId() {
@@ -159,5 +158,32 @@ public class ServerInformation {
 
     public void setRecordTime(LocalDateTime recordTime) {
         this.recordTime = recordTime;
+    }
+
+    @Override
+    public String toString() {
+        return "ServerInformation{" +
+                "id=" + id +
+                ", IP='" + IP + '\'' +
+                ", CPU='" + CPU + '\'' +
+                ", memory=" + memory +
+                ", disk=" + disk +
+                ", maxAllowedThreads=" + maxAllowedThreads +
+                ", online=" + online +
+                ", usedCPU=" + usedCPU +
+                ", usedMemory=" + usedMemory +
+                ", usedDisk=" + usedDisk +
+                ", currentThreads=" + currentThreads +
+                ", recordTime=" + recordTime +
+                '}';
+    }
+
+    public static void main(String[] args) {
+        ServerInformation info = new ServerInformation();
+
+        //JSONObject obj = (JSONObject) JSON.toJSON(info);
+        System.out.println(JSON.toJSONString(info));
+        //System.out.println(obj);
+
     }
 }

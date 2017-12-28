@@ -32,7 +32,15 @@ public class ServerInfoDaoImpl implements ServerInfoDao {
 
     }
 
-    public ArrayList<ServerInformation> getServerInfoAtDay(String ip) {
-        return null;
+    //24 hours per day, begin with 1.
+    public ServerInformation selectOneHourServerInfoAtDay(String ip, String date, int hour) {
+        //Time formate: 2017-03-03 17:39:05
+
+        String startTime =  date+" "+(hour-1)+":00:00";
+
+        String endTime = date+" "+(hour-1)+":59:59";
+
+        return serverInfoMapper.mapperSelectOneHourServerInfoAtDay(ip,startTime,endTime);
+
     }
 }
