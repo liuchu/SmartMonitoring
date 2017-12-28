@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Created by no one on 2017/12/24.
@@ -29,7 +30,7 @@ public class ServerInfoController {
     @RequestMapping("/latest")
     public String getServersInformationLatest() {
         //ModelAndView mav = new ModelAndView("dashboard");
-        System.out.println("OOOOO "+severInfoService.getLatestServersInfo());
+        //System.out.println("OOOOO "+severInfoService.getLatestServersInfo());
         return severInfoService.getLatestServersInfo();
         //return "";
     }
@@ -37,10 +38,14 @@ public class ServerInfoController {
     /*
      * 获取服务器信息历史记录, 从数据库中获取
      * */
+    @ResponseBody
     @RequestMapping("/history")
-    public ModelAndView getServersInformationHistory(@RequestParam("ip") String ip){
-        ModelAndView mav = new ModelAndView("dashboard");
-        return mav;
+    public String getServersInformationHistory(HttpServletRequest request){
+        /* ModelAndView mav = new ModelAndView("dashboard");*/
+        String ip = request.getParameter("ip");
+        String date = request.getParameter("date");
+        System.out.println("HISTORY--"+ip+" "+date);
+        return severInfoService.getServerInfoAtDay(ip,date);
     }
 
     /*

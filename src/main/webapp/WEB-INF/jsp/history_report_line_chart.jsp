@@ -22,44 +22,34 @@
 
 <div class="container" style="color: snow">
 
+    <h1 id="system_message_dashboard" style="text-align:center;color: red"></h1>
+
     <div class="row clearfix" style="margin-top: 130px">
 
         <div class="col-md-2 column"> </div>
 
         <div class="col-md-10 column">
-            <div class="btn-group open" style="margin-left: 2%">
-                <select class="form-control" id="select_ip">
-                    <option>211.211.211.101</option>
-                    <option>211.211.211.102</option>
-                    <option>211.211.211.103</option>
-                    <option>211.211.211.104</option>
-                    <option>211.211.211.105</option>
-                    <option>211.211.211.106</option>
-                    <option>211.211.211.107</option>
-                    <option>211.211.211.108</option>
-                    <option>211.211.211.109</option>
-                    <option>211.211.211.110</option>
-                </select>
 
-            </div>
+            <div style="margin-left: 2%;">
 
-            <%--<div class="btn-group open" >
-                <select class="form-control" id="select_chart">
-                    <option><spring:message code="report.submit.chart_option.line"/></option>
-                    <option><spring:message code="report.submit.chart_option.bar"/></option>
-                </select>
-            </div>--%>
+                    <select class="form-control" id="select_ip" >
+                        <option selected="selected">211.211.211.101</option>
+                        <option>211.211.211.102</option>
+                        <option>211.211.211.103</option>
+                        <option>211.211.211.104</option>
+                        <option>211.211.211.105</option>
+                        <option>211.211.211.106</option>
+                        <option>211.211.211.107</option>
+                        <option>211.211.211.108</option>
+                        <option>211.211.211.109</option>
+                        <option>211.211.211.110</option>
+                    </select>
 
-            <div class="btn-group open">
-                <input type="date" value="2017-12-01" width="100%"/>
-            </div>
+                    <input id="chart_date" type="date" value="2017-12-01" width="100%" style="color:darkmagenta"/>
 
-            <br/>
+                <br/>
 
-            <div style="margin-left: 2%">
-                <button type="button" class="btn btn-default">
-                    <a id="select_language_submit"><spring:message code="report.submit"/> </a>
-                </button>
+                    <button class="btn-info" id="chart_submit"><spring:message code="report.submit"/></button>
 
             </div>
 
@@ -112,7 +102,7 @@
             <div class="col-md-10 column">
 
                 <div style="margin-left: 2%">
-                    <h2><spring:message code="report.chart_title.cpu"/></h2>
+                    <h2><spring:message code="report.chart_title.memory"/></h2>
                     <canvas id="line_chart_memory" height="450" width="1000"></canvas>
                 </div>
 
@@ -125,7 +115,7 @@
             <div class="col-md-10 column">
 
                 <div style="margin-left: 2%">
-                    <h2><spring:message code="report.chart_title.cpu"/></h2>
+                    <h2><spring:message code="report.chart_title.disk"/></h2>
                     <canvas id="line_chart_thread" height="450" width="1000"></canvas>
                 </div>
 
@@ -138,7 +128,7 @@
             <div class="col-md-10 column">
 
                 <div style="margin-left: 2%">
-                    <h3><spring:message code="report.chart_title.cpu"/></h3>
+                    <h3><spring:message code="report.chart_title.thread"/></h3>
                     <canvas id="line_chart_disk" height="450" width="1000"></canvas>
                 </div>
 

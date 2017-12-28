@@ -4,57 +4,147 @@
  */
 $(document).ready(function(){
 
-    console.log("Loading charts");
+    $("#chart_submit").on("click",function () {
+        var date = $("#chart_date").val();
+        var ip = $("#select_ip").val();
+        console.log("submit!");
+        loadChart(ip,date);
+    });
 
+    //console.log("Loading charts");
     //重新加载图表
-    function loadChart(ip,type) {
-        
+    function loadChart(ip,date) {
+        $.ajax({
+            url : "/serverInfo/history",
+            async : false,
+            data : {
+                "ip":ip,
+                "date":date
+            },
+            type :"GET",
+            success : function(data,status,jqXHR){
+
+                if(jqXHR.status == 200){
+
+                    //console.log(data);
+
+                    var chartDataCPU1 = {};
+                    var chartDataMemory1 = {};
+                    var chartDataDisk1 = {};
+                    var chartDataThreads1 = {};
+
+                    var commonLabel = ["1","2","3","4","5","6",
+                        "7","8","9","10","11","12",
+                        "13","14","15","16","17","18",
+                        "19","20","21","22","23","24"
+                    ];
+
+                    chartDataCPU1["labels"] = commonLabel;
+                    chartDataMemory1["labels"] = commonLabel;
+                    chartDataDisk1["labels"] = commonLabel;
+                    chartDataThreads1["labels"] = commonLabel;
+
+                    var arrayElementsCPU = [];
+                    var arrayElementsMemory = [];
+                    var arrayElementsDisk = [];
+                    var arrayElementsThreads = [];
+
+                    var arrayTempCPU = [];
+                    var arrayTempMemory = [];
+                    var arrayTempDisk = [];
+                    var arrayTempThreads = [];
+
+                    var jsonObj = JSON.parse(data); //由JSON字符串转换为JSON对象
+
+                    var jsonArrayInfoAtDay =  jsonObj[ip];
+
+                    //console.log(JSON.stringify(jsonArrayInfoAtDay));
+
+                    for(index in jsonArrayInfoAtDay){
+
+                        var jsonInfoAtHour = jsonArrayInfoAtDay[index];
+
+                        var key = parseInt(1)+parseInt(index);
+                        var jsonInfoAtHourKey = key.toString();
+
+                        var jsonInfoAtHourValue = jsonInfoAtHour[jsonInfoAtHourKey];
+
+                        var usedCPU = jsonInfoAtHourValue["usedCPU"];
+                        var usedMemory = jsonInfoAtHourValue["usedMemory"];
+                        var usedDisk = jsonInfoAtHourValue["usedDisk"];
+                        var currentThreads = jsonInfoAtHourValue["currentThreads"];
+
+                        //console.log(ip+"cpu is:"+usedCPU);
+
+                        arrayTempCPU.push(usedCPU);
+                        arrayTempMemory.push(usedMemory);
+                        arrayTempDisk.push(usedDisk);
+                        arrayTempThreads.push(currentThreads);
+
+                    }
+
+                    var elementCPU = {};
+                    elementCPU["fillColor"] = "rgba(220,220,220,0.5)";
+                    elementCPU["strokeColor"] = "rgba(220,220,220,1)";
+                    elementCPU["pointColor"] = "rgba(220,220,220,1)";
+                    elementCPU["pointStrokeColor"] = "#fff";
+                    elementCPU["data"] = arrayTempCPU;
+
+                    var elementMemory = {};
+                    elementMemory["fillColor"] = "rgba(220,220,220,0.5)";
+                    elementMemory["strokeColor"] = "rgba(220,220,220,1)";
+                    elementMemory["pointColor"] = "rgba(220,220,220,1)";
+                    elementMemory["pointStrokeColor"] = "#fff";
+                    elementMemory["data"] = arrayTempMemory;
+
+                    var elementDisk = {};
+                    elementDisk["fillColor"] = "rgba(220,220,220,0.5)";
+                    elementDisk["strokeColor"] = "rgba(220,220,220,1)";
+                    elementDisk["pointColor"] = "rgba(220,220,220,1)";
+                    elementDisk["pointStrokeColor"] = "#fff";
+                    elementDisk["data"] = arrayTempDisk;
+
+                    var elementThreads = {};
+                    elementThreads["fillColor"] = "rgba(220,220,220,0.5)";
+                    elementThreads["strokeColor"] = "rgba(220,220,220,1)";
+                    elementThreads["pointColor"] = "rgba(220,220,220,1)";
+                    elementThreads["pointStrokeColor"] = "#fff";
+                    elementThreads["data"] = arrayTempThreads;
+
+                    arrayElementsCPU.push(elementCPU);
+                    arrayElementsMemory.push(elementMemory);
+                    arrayElementsDisk.push(elementDisk);
+                    arrayElementsThreads.push(elementThreads);
+
+                    chartDataCPU1["datasets"] = arrayElementsCPU;
+                    chartDataMemory1["datasets"] = arrayElementsMemory;
+                    chartDataDisk1["datasets"] = arrayElementsDisk;
+                    chartDataThreads1["datasets"] = arrayElementsThreads;
+
+                    //console.log("Response from server:"+data);
+
+                    var myLine1 = new Chart(document.getElementById("line_chart_cpu").getContext("2d")).Line(chartDataCPU1);
+                    var myLine2 = new Chart(document.getElementById("line_chart_memory").getContext("2d")).Line(chartDataMemory1);
+                    var myLine3 = new Chart(document.getElementById("line_chart_thread").getContext("2d")).Line(chartDataDisk1);
+                    var myLine4 = new Chart(document.getElementById("line_chart_disk").getContext("2d")).Line(chartDataThreads1);
+
+                }else{
+                    $("#system_message_dashboard").html("Server internal error");
+                }
+
+            },
+            error : function (jqXHR) {
+                $("#system_message_dashboard").html("can't connect server:");
+            }
+
+        });
     }
 
-    var lineChartData = {
-        labels : ["Dec-1","Dec-2","Dec-3","Dec-5","Dec-6","Dec-7","Dec-8","Dec-9","Dec-10"],
-        datasets : [
-            {
-                fillColor : "rgba(220,220,220,0.5)",
-                strokeColor : "rgba(220,220,220,1)",
-                pointColor : "rgba(220,220,220,1)",
-                pointStrokeColor : "#fff",
-                data : [0,0,90,81,56,55,40,99,67,12]
-            }
-        ]
+    var date = new Date();
+    var dateStr =  date.getFullYear()+"-"+(date.getMonth()+1)+"-"+date.getDate();
+    //console.log("Today:"+dateStr);
 
-    };
+    loadChart("211.211.211.101",dateStr);
 
-    var myLine1 = new Chart(document.getElementById("line_chart_cpu").getContext("2d")).Line(lineChartData);
-    var myLine2 = new Chart(document.getElementById("line_chart_memory").getContext("2d")).Line(lineChartData);
-    var myLine3 = new Chart(document.getElementById("line_chart_thread").getContext("2d")).Line(lineChartData);
-    var myLine4 = new Chart(document.getElementById("line_chart_disk").getContext("2d")).Line(lineChartData);
-
-    /*myLine1 = new Chart(document.getElementById("line_chart_cpu").getContext("2d")).Bar(lineChartData);
-     myLine2 = new Chart(document.getElementById("line_chart_memory").getContext("2d")).Bar(lineChartData);
-     myLine3 = new Chart(document.getElementById("line_chart_thread").getContext("2d")).Bar(lineChartData);
-     myLine4 = new Chart(document.getElementById("line_chart_disk").getContext("2d")).Bar(lineChartData);*/
-
-    $("#select_language_submit").attr("href","/setting/changeLanguage?lang="+"en_US");
-
-    //获取Select的值，并拼接到方法里
-    $("#select_language").change(
-        function () {
-
-            var language = $("#select_language").val();
-            var language_code = '';
-
-            switch (language) {
-                case "English": language_code = "en_US";
-                    break;
-                case "中文": language_code = "zh_CN";
-                    break;
-                default : language_code = "en_US";
-                    break;
-            }
-
-            $("#select_language_submit").attr("href","/setting/changeLanguage?lang="+language_code);
-        }
-    );
 
 });

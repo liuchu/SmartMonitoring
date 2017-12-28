@@ -14,6 +14,6 @@ public interface ServerInfoMapper {
 
     int mapperInsertServerInfo(ServerInformation serverInformation);
 
-    /*public List<ServerInformation> selectServerInfoAtDay();*/
+    ServerInformation mapperSelectOneHourServerInfoAtDay(String ip, String startTime,String endTime);
 
 }

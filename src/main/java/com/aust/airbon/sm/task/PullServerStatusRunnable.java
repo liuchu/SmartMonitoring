@@ -127,7 +127,7 @@ public class PullServerStatusRunnable implements Runnable {
         );
 
         //save the status to database
-        System.out.println("serverDao:"+serverInfoDao);
+        //System.out.println("serverDao:"+serverInfoDao);
         try {
             synchronized (number) {
                 synchronized (serverInfoDao){
@@ -146,7 +146,6 @@ public class PullServerStatusRunnable implements Runnable {
             System.out.println("Could NOT write into database!!!");
             e.printStackTrace();
         }
-
 
     }
 }
