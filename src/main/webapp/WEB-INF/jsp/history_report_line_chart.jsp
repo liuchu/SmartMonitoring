@@ -63,7 +63,10 @@
         <div class="col-md-10 column">
             <div style="margin-left: 2%">
                 <label style="color: white"><spring:message code="report.label.current_ip"/>:</label>
-                <span style="color: darkgreen">211.211.211.101</span>
+                <span style="color: darkgreen" id="selectedIP"></span>
+                <br/>
+                <label style="color: white"><spring:message code="report.label.current_date"/>:</label>
+                <span style="color: darkgreen" id="selectedDate"></span>
             </div>
         </div>
     </div>
@@ -78,19 +81,26 @@
 
             <div style="margin-left: 2%">
                 <h2><spring:message code="report.chart_title.cpu"/></h2>
-                <div class="btn-group btn-group-xs" style="margin-left: 3%;alignment: right">
-                    <button class="btn btn-success" type="button">
-                        <em class="glyphicon glyphicon-align-left">
 
-                        </em> <spring:message code="report.submit.chart_option.line"/>
-                    </button>
-                    <button class="btn btn-warning" type="button">
-                        <em class="glyphicon glyphicon-align-center">
-
-                        </em> <spring:message code="report.submit.chart_option.bar"/>
-                    </button>
+                <div class="tabbable" id="tabs-720472">
+                    <ul class="nav nav-tabs">
+                        <li class="active">
+                            <a href="#panel-731880" data-toggle="tab"><spring:message code="report.submit.chart_option.line"/></a>
+                        </li>
+                        <li>
+                            <a href="#panel-223748" data-toggle="tab"><spring:message code="report.submit.chart_option.bar"/></a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="panel-731880">
+                            <canvas id="line_chart_cpu" height="450" width="1000"></canvas>
+                        </div>
+                        <div class="tab-pane" id="panel-223748">
+                            <canvas id="bar_chart_cpu" height="450" width="1000"></canvas>
+                        </div>
+                    </div>
                 </div>
-                <canvas id="line_chart_cpu" height="450" width="1000"></canvas>
+
             </div>
 
         </div>
@@ -103,7 +113,27 @@
 
                 <div style="margin-left: 2%">
                     <h2><spring:message code="report.chart_title.memory"/></h2>
-                    <canvas id="line_chart_memory" height="450" width="1000"></canvas>
+
+                    <div class="tabbable" id="tabs-720473">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-731881" data-toggle="tab"><spring:message code="report.submit.chart_option.line"/></a>
+                            </li>
+                            <li>
+                                <a href="#panel-223749" data-toggle="tab"><spring:message code="report.submit.chart_option.bar"/></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-731881">
+                                <canvas id="line_chart_memory" height="450" width="1000"></canvas>
+                            </div>
+                            <div class="tab-pane" id="panel-223749">
+                                <canvas id="bar_chart_memory" height="450" width="1000"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <%--<canvas id="line_chart_memory" height="450" width="1000"></canvas>--%>
                 </div>
 
             </div>
@@ -116,7 +146,29 @@
 
                 <div style="margin-left: 2%">
                     <h2><spring:message code="report.chart_title.disk"/></h2>
-                    <canvas id="line_chart_thread" height="450" width="1000"></canvas>
+
+                    <div class="tabbable" id="tabs-720474">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-731882" data-toggle="tab"><spring:message code="report.submit.chart_option.line"/></a>
+                            </li>
+                            <li>
+                                <a href="#panel-223750" data-toggle="tab"><spring:message code="report.submit.chart_option.bar"/></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-731882">
+                                <canvas id="line_chart_thread" height="450" width="1000"></canvas>
+                            </div>
+                            <div class="tab-pane" id="panel-223750">
+                                <canvas id="bar_chart_thread" height="450" width="1000"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                    <
                 </div>
 
             </div>
@@ -129,7 +181,27 @@
 
                 <div style="margin-left: 2%">
                     <h3><spring:message code="report.chart_title.thread"/></h3>
-                    <canvas id="line_chart_disk" height="450" width="1000"></canvas>
+
+                    <div class="tabbable" id="tabs-720475">
+                        <ul class="nav nav-tabs">
+                            <li class="active">
+                                <a href="#panel-731883" data-toggle="tab"><spring:message code="report.submit.chart_option.line"/></a>
+                            </li>
+                            <li>
+                                <a href="#panel-223751" data-toggle="tab"><spring:message code="report.submit.chart_option.bar"/></a>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="panel-731883">
+                                <canvas id="line_chart_disk" height="450" width="1000"></canvas>
+                            </div>
+                            <div class="tab-pane" id="panel-223751">
+                                <canvas id="bar_chart_disk" height="450" width="1000"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>

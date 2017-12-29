@@ -86,11 +86,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px" class="btn-success">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -118,11 +118,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -150,11 +150,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -182,11 +182,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -214,11 +214,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -246,11 +246,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -278,11 +278,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -310,11 +310,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -342,11 +342,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>
@@ -374,11 +374,11 @@
                         ?
                     </td>
                     <td >
-                        <input type="text" style="width: 80px"/>
-                        <button style="width: 70px"><spring:message code="live.table_modify_thread.submit"/></button>
+                        <input type="text" style="width: 80px;color: black"/>
+                        <button style="width: 70px">Submit</button>
                     </td>
                     <td >
-                        <button class="btn-info"><spring:message code="live.table_start_stop"/></button>
+                        <button class="btn-info"></button>
                     </td>
 
                 </tr>

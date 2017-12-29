@@ -15,6 +15,10 @@ $(document).ready(function(){
     //console.log("Loading charts");
     //重新加载图表
     function loadChart(ip,date) {
+
+        $("#selectedIP").html(ip);
+        $("#selectedDate").html(date);
+
         $.ajax({
             url : "/serverInfo/history",
             async : false,
@@ -86,30 +90,30 @@ $(document).ready(function(){
 
                     var elementCPU = {};
                     elementCPU["fillColor"] = "rgba(220,220,220,0.5)";
-                    elementCPU["strokeColor"] = "rgba(220,220,220,1)";
+                    elementCPU["strokeColor"] = "rgba(243,27,35,1)";
                     elementCPU["pointColor"] = "rgba(220,220,220,1)";
-                    elementCPU["pointStrokeColor"] = "#fff";
+                    elementCPU["pointStrokeColor"] = "#64ff4a";
                     elementCPU["data"] = arrayTempCPU;
 
                     var elementMemory = {};
                     elementMemory["fillColor"] = "rgba(220,220,220,0.5)";
-                    elementMemory["strokeColor"] = "rgba(220,220,220,1)";
+                    elementMemory["strokeColor"] = "rgba(243,27,35,1)";
                     elementMemory["pointColor"] = "rgba(220,220,220,1)";
-                    elementMemory["pointStrokeColor"] = "#fff";
+                    elementMemory["pointStrokeColor"] = "#64ff4a";
                     elementMemory["data"] = arrayTempMemory;
 
                     var elementDisk = {};
                     elementDisk["fillColor"] = "rgba(220,220,220,0.5)";
-                    elementDisk["strokeColor"] = "rgba(220,220,220,1)";
+                    elementDisk["strokeColor"] = "rgba(243,27,35,1)";
                     elementDisk["pointColor"] = "rgba(220,220,220,1)";
-                    elementDisk["pointStrokeColor"] = "#fff";
+                    elementDisk["pointStrokeColor"] = "#64ff4a";
                     elementDisk["data"] = arrayTempDisk;
 
                     var elementThreads = {};
                     elementThreads["fillColor"] = "rgba(220,220,220,0.5)";
-                    elementThreads["strokeColor"] = "rgba(220,220,220,1)";
+                    elementThreads["strokeColor"] = "rgba(243,27,35,1)";
                     elementThreads["pointColor"] = "rgba(220,220,220,1)";
-                    elementThreads["pointStrokeColor"] = "#fff";
+                    elementThreads["pointStrokeColor"] = "#64ff4a";
                     elementThreads["data"] = arrayTempThreads;
 
                     arrayElementsCPU.push(elementCPU);
@@ -128,6 +132,11 @@ $(document).ready(function(){
                     var myLine2 = new Chart(document.getElementById("line_chart_memory").getContext("2d")).Line(chartDataMemory1);
                     var myLine3 = new Chart(document.getElementById("line_chart_thread").getContext("2d")).Line(chartDataDisk1);
                     var myLine4 = new Chart(document.getElementById("line_chart_disk").getContext("2d")).Line(chartDataThreads1);
+
+                    var myBar1 = new Chart(document.getElementById("bar_chart_cpu").getContext("2d")).Bar(chartDataCPU1);
+                    var myBar2 = new Chart(document.getElementById("bar_chart_memory").getContext("2d")).Bar(chartDataMemory1);
+                    var myBar3 = new Chart(document.getElementById("bar_chart_thread").getContext("2d")).Bar(chartDataDisk1);
+                    var myBar4 = new Chart(document.getElementById("bar_chart_disk").getContext("2d")).Bar(chartDataThreads1);
 
                 }else{
                     $("#system_message_dashboard").html("Server internal error");

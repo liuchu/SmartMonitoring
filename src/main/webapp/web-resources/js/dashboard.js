@@ -66,7 +66,12 @@ $(document).ready(function(){
                 }
 
                 //处理数据，生成图表
-                var data_arr1 = [(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2), 1-(CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2)],
+                var intelPercent =  (CPUModelIntelNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2);
+                var amdPercent =  (CPUModelAMDNum/(CPUModelIntelNum+CPUModelAMDNum)).toFixed(2);
+
+                console.log("CPU %:"+intelPercent+" "+amdPercent);
+
+                var data_arr1 = [intelPercent, amdPercent],
                     color_arr1 = ['#F69E00','#36A3B4'],
                     text_arr1 =['Intel', 'AMD'];
 
@@ -122,7 +127,7 @@ $(document).ready(function(){
                 context.fillRect(posX, posY + 20 * i, width, height);
                 context.moveTo(posX, posY + 20 * i);
                 context.font = 'bold 12px Arial';
-                var percent = text_arr[i] + ' : ' + data_arr[i]*100 + '%';
+                var percent = text_arr[i] + ' : ' + Math.round(data_arr[i]*100) + '%';
                 context.fillText(percent, textX, textY + 20 * i);
             }
 

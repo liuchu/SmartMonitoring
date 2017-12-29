@@ -1,5 +1,6 @@
 package com.aust.airbon.sm.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.aust.airbon.sm.service.SeverInfoService;
 import com.aust.airbon.sm.service.impl.SeverInfoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,10 +52,13 @@ public class ServerInfoController {
     /*
      * 更新服务器配置
      * */
+    @ResponseBody
     @RequestMapping("/config")
-    public ModelAndView updateServersConfig(@RequestParam("ip") String ip){
-        ModelAndView mav = new ModelAndView("dashboard");
-        return mav;
+    public String updateServersConfig(HttpServletRequest request){
+        //ModelAndView mav = new ModelAndView("dashboard");
+        JSONObject obj = new JSONObject();
+        obj.put("response","success");
+        return obj.toJSONString();
     }
 
 }
