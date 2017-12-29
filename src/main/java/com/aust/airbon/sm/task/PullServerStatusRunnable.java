@@ -77,7 +77,7 @@ public class PullServerStatusRunnable implements Runnable {
         try {
             Socket socket = new Socket("localhost",dataTransferPort);
             //System.out.println(socket.getSoTimeout());
-            socket.setSoTimeout(1000*10);
+            socket.setSoTimeout(1000*20);
             PrintWriter pw = new PrintWriter(socket.getOutputStream());
             BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             pw.write("PING");
@@ -100,24 +100,12 @@ public class PullServerStatusRunnable implements Runnable {
 
             //System.out.println(ip+"PULL SERVER STATUS"+jsonString);
 
-        } catch (SocketTimeoutException e){
+        } catch (Exception e3) {
             JSONObject obj = new JSONObject();
             obj.put("IP",ip);
             obj.put("online",false);
             context.setAttribute(ip,obj.toJSONString());
-            System.out.println(ip+"SocketTimeoutException: This server is offline!!");
-        } catch (SocketException e) {
-            JSONObject obj = new JSONObject();
-            obj.put("IP",ip);
-            obj.put("online",false);
-            context.setAttribute(ip,obj.toJSONString());
-            System.out.println(ip+"SocketException: This server is offline!!");
-        } catch (IOException e) {
-            JSONObject obj = new JSONObject();
-            obj.put("IP",ip);
-            obj.put("online",false);
-            context.setAttribute(ip,obj.toJSONString());
-            System.out.println(ip+"IOException: This server is offline!!");
+            e3.printStackTrace();
         }
 
         JSONObject serverStatus = JSON.parseObject(jsonString);
@@ -140,19 +128,19 @@ public class PullServerStatusRunnable implements Runnable {
         try {
             synchronized (number) {
                 synchronized (serverInfoDao){
-                    System.out.println("TRIED TO INSERT A RECORD");
+                    //System.out.println("TRIED TO INSERT A RECORD");
                     int affectedRow = serverInfoDao.insertServerInfo(serverInfo);
 
                     if (affectedRow == 0) {
-                        System.out.println("FAILED!");
+                        //System.out.println("FAILED!");
                     } else {
-                        System.out.println("SUCCESS!");
+                        //System.out.println("SUCCESS!");
                     }
                 }
 
             }
         } catch (Exception e) {
-            System.out.println("Could NOT write into database!!!");
+            //System.out.println("Could NOT write into database!!!");
             e.printStackTrace();
         }
 

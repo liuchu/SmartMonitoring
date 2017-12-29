@@ -63,10 +63,10 @@
         <div class="col-md-10 column">
             <div style="margin-left: 2%">
                 <label style="color: white"><spring:message code="report.label.current_ip"/>:</label>
-                <span style="color: darkgreen" id="selectedIP"></span>
+                <strong><span style="color: darkgreen" id="selectedIP"></span></strong>
                 <br/>
                 <label style="color: white"><spring:message code="report.label.current_date"/>:</label>
-                <span style="color: darkgreen" id="selectedDate"></span>
+                <strong><span style="color: darkgreen" id="selectedDate"></span></strong>
             </div>
         </div>
     </div>
@@ -168,13 +168,12 @@
 
                 </div>
 
-                    <
                 </div>
 
             </div>
-    </div>
 
     <div class="row clearfix">
+
         <div class="col-md-2 column"> </div>
 
             <div class="col-md-10 column">
@@ -206,6 +205,7 @@
 
             </div>
     </div>
+
 
 </div>
 

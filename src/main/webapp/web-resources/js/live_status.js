@@ -50,17 +50,13 @@ $(document).ready(function(){
                             tds1.eq(8).find("button").eq(0).attr("class","btn-danger status");
                             tds1.eq(8).find("button").eq(0).html("Startup");
 
-                            //var button = tds1.eq(8).find("button").eq(0);
-                            //button.click = updateServerConfig(button);
-
-                            //$("#tr"+ind).eq(0).html(serverInfoObj["IP"]);
                         } else {
                             $("#tr"+ind).attr("bgcolor","");
 
                             var tds2 = $("#tr"+ind).find("td");
 
                             tds2.eq(0).html("<strong style='color: green;'>"+serverInfoObj["IP"]+"</strong>");
-                            tds2.eq(1).html(serverInfoObj["online"]);
+                            tds2.eq(1).html("Online");
                             tds2.eq(2).html(serverInfoObj["CPU"]);
 
                             if (serverInfoObj["usedCPU"] > 50) {

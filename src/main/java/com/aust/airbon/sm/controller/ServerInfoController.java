@@ -3,6 +3,7 @@ package com.aust.airbon.sm.controller;
 import com.alibaba.fastjson.JSONObject;
 import com.aust.airbon.sm.service.SeverInfoService;
 import com.aust.airbon.sm.service.impl.SeverInfoServiceImpl;
+import com.aust.airbon.sm.task.UpdateConfigTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,9 +57,13 @@ public class ServerInfoController {
     @RequestMapping("/config")
     public String updateServersConfig(HttpServletRequest request){
         //ModelAndView mav = new ModelAndView("dashboard");
-        JSONObject obj = new JSONObject();
-        obj.put("response","success");
-        return obj.toJSONString();
+        String ip = request.getParameter("ip");
+        String type = request.getParameter("type");
+        String value = request.getParameter("value");
+
+        System.out.println("ip:"+ip+" type"+type+" value:"+value);
+
+        return UpdateConfigTask.modifyConfig(ip,type,value);
     }
 
 }

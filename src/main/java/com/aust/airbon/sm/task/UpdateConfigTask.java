@@ -13,13 +13,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Created by chuliu on 2017/12/25.
+ * Created by no one on 2017/12/25.
+ *
  */
 public class UpdateConfigTask {
 
     private static Map<String,Integer> serverList = new HashMap<String, Integer>();
 
-    public UpdateConfigTask() {
+    static {
         serverList.put("211.211.211.101",10202);
         serverList.put("211.211.211.102",10205);
         serverList.put("211.211.211.103",10208);
@@ -32,11 +33,13 @@ public class UpdateConfigTask {
         serverList.put("211.211.211.110",10229);
     }
 
-    public String modifyConfig(String ip, String type, String value ){
+    public UpdateConfigTask() {
+
+    }
+
+    public static String modifyConfig(String ip, String type, String value ){
 
         int port =  serverList.get(ip);
-
-        //
 
         try {
             Socket socket = new Socket("localhost",port);

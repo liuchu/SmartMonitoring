@@ -53,7 +53,7 @@ public class SeverInfoServiceImpl implements SeverInfoService {
 
         if (serverIpList!=null){
             for (String ip : serverIpList){
-                //System.out.println("IP IS:"+ip+"VALUE IS:"+context.getAttribute(ip));
+                System.out.println("IP IS:"+ip+"VALUE IS:"+context.getAttribute(ip));
                 array.add(context.getAttribute(ip));
             }
         }
