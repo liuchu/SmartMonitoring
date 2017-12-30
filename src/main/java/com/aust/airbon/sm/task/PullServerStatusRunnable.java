@@ -74,38 +74,64 @@ public class PullServerStatusRunnable implements Runnable {
 
         String jsonString = "";
 
+        Socket socket = null;
+        PrintWriter pw = null;
+        BufferedReader br = null;
+
         try {
-            Socket socket = new Socket("localhost",dataTransferPort);
+            System.out.println(ip+" Trying to get serve status");
+
+            socket = new Socket("localhost",dataTransferPort);
             //System.out.println(socket.getSoTimeout());
             socket.setSoTimeout(1000*20);
-            PrintWriter pw = new PrintWriter(socket.getOutputStream());
-            BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            pw = new PrintWriter(socket.getOutputStream());
+
             pw.write("PING");
             pw.flush();
 
             socket.shutdownOutput();
+            //pw.close();
 
             //3、获取输入流，并读取服务器端的响应信息
+            br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
             String info = "";
             StringBuilder stringBuffer = new StringBuilder("");
             while((info=br.readLine())!=null){
                 stringBuffer.append(info);
             }
+
             socket.shutdownInput();
+            //br.close();
 
             jsonString = stringBuffer.toString();
 
             //save to web servlet context
             context.setAttribute(ip,jsonString);
 
+            pw.close();
+            br.close();
+            socket.close();
             //System.out.println(ip+"PULL SERVER STATUS"+jsonString);
 
         } catch (Exception e3) {
+
+            try {
+                pw.close();
+                br.close();
+                socket.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
             JSONObject obj = new JSONObject();
             obj.put("IP",ip);
             obj.put("online",false);
             context.setAttribute(ip,obj.toJSONString());
+            System.out.println(ip+"is offline, the exception is:");
             e3.printStackTrace();
+
+            return;
         }
 
         JSONObject serverStatus = JSON.parseObject(jsonString);
